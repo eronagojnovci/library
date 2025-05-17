@@ -1,0 +1,62 @@
+package server;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+
+import java.util.*;
+
+public class LibraryManager {
+    private final Map<String, Book> books = new HashMap<>();
+
+    public LibraryManager() {
+        // Shtojmë disa libra fillestarë
+        addBook(new Book("1", "Java për fillestarë", "Autor A", 3));
+        addBook(new Book("2", "Struktura të të dhënave", "Autor B", 2));
+        addBook(new Book("3", "Algoritme në Java", "Autor C", 1));
+    }
+
+    public synchronized void addBook(Book book) {
+        books.put(book.getId(), book);
+    }
+
+    public synchronized String searchBooks(String keyword) {
+        StringBuilder sb = new StringBuilder();
+        for (Book b : books.values()) {
+            if (b.getTitle().toLowerCase().contains(keyword.toLowerCase()) ||
+                b.getAuthor().toLowerCase().contains(keyword.toLowerCase())) {
+                sb.append(b).append("\n");
+            }
+        }
+        return sb.length() == 0 ? "Nuk u gjet asnjë libër." : sb.toString();
+    }
+
+    public synchronized String borrowBook(String bookId) {
+        Book b = books.get(bookId);
+        if (b == null) return "Libri nuk ekziston.";
+        if (b.getAvailable() > 0) {
+            b.setAvailable(b.getAvailable() - 1);
+            return "Libri '" + b.getTitle() + "' u huazua me sukses.";
+        } else {
+            return "Libri nuk është në dispozicion për huazim.";
+        }
+    }
+
+    public synchronized String returnBook(String bookId) {
+        Book b = books.get(bookId);
+        if (b == null) return "Libri nuk ekziston.";
+        b.setAvailable(b.getAvailable() + 1);
+        return "Libri '" + b.getTitle() + "' u kthye me sukses.";
+    }
+
+    public synchronized String listBooks() {
+        StringBuilder sb = new StringBuilder("Lista e librave:\n");
+        for (Book b : books.values()) {
+            sb.append(b).append("\n");
+        }
+        return sb.toString();
+    }
+}
