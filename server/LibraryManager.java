@@ -14,9 +14,9 @@ public class LibraryManager {
 
     public LibraryManager() {
         // Shtojmë disa libra fillestarë
-        addBook(new Book("1", "Java për fillestarë", "Autor A", 3));
-        addBook(new Book("2", "Struktura të të dhënave", "Autor B", 2));
-        addBook(new Book("3", "Algoritme në Java", "Autor C", 1));
+        addBook(new Book("1", "Java per fillestare", "Autor A", 3));
+        addBook(new Book("2", "Struktura te te dhenave", "Autor B", 2));
+        addBook(new Book("3", "Algoritme ne Java", "Autor C", 1));
     }
 
     public synchronized void addBook(Book book) {
@@ -24,15 +24,18 @@ public class LibraryManager {
     }
 
     public synchronized String searchBooks(String keyword) {
+        keyword = keyword.toLowerCase();
         StringBuilder sb = new StringBuilder();
         for (Book b : books.values()) {
-            if (b.getTitle().toLowerCase().contains(keyword.toLowerCase()) ||
-                b.getAuthor().toLowerCase().contains(keyword.toLowerCase())) {
+            if (b.getId().toLowerCase().contains(keyword) ||
+                b.getTitle().toLowerCase().contains(keyword) ||
+                b.getAuthor().toLowerCase().contains(keyword)) {
                 sb.append(b).append("\n");
             }
         }
         return sb.length() == 0 ? "Nuk u gjet asnjë libër." : sb.toString();
     }
+
 
     public synchronized String borrowBook(String bookId) {
         Book b = books.get(bookId);

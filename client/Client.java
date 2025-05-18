@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Client {
     private static final String SERVER = "localhost";
-    private static final int PORT = 12346;
+    private static final int PORT = 6000;
 
     public static void main(String[] args) {
         try (

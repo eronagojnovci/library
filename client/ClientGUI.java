@@ -24,6 +24,8 @@ public class ClientGUI extends JFrame {
         setLocationRelativeTo(null);
         setupUI();
         connectToServer();
+        doList();
+
     }
 
     private void setupUI() {
@@ -62,13 +64,16 @@ public class ClientGUI extends JFrame {
         borrowBtn.addActionListener(e -> doBorrow());
         returnBtn.addActionListener(e -> doReturn());
         listBtn.addActionListener(e -> doList());
+        inputField.addActionListener(e -> {
+            doSearch();
+            inputField.setText(""); 
+        });
 
-        inputField.addActionListener(e -> doSearch());
     }
 
     private void connectToServer() {
         try {
-            socket = new Socket("localhost", 12345);
+            socket = new Socket("localhost", 6000);
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
 
@@ -126,15 +131,26 @@ public class ClientGUI extends JFrame {
         output.println(cmd);
         logArea.append("Ti: " + cmd + "\n");
     }
-
     private void doSearch() {
-        String key = inputField.getText().trim();
-        if (key.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Shkruaj fjalë kyçe për kërkim.", "Kujdes", JOptionPane.WARNING_MESSAGE);
-            return;
+        String query = inputField.getText().trim();
+        if (query.isEmpty()) return;
+
+        output.println("search:" + query);
+        try {
+            String response = input.readLine();
+            
+            booksTable.setToolTipText(""); // 🧹 Pastro textArea përpara se të shtosh tekstin e ri
+
+            if (response == null || response.trim().isEmpty()) {
+            	logArea.setText("Nuk u gjet asnjë libër me këtë emër.");
+            } else {
+            	logArea.setText(response); // nuk përdorim .append për të mos shtuar poshtë
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-        sendCommand("KERKO;" + key);
     }
+
 
     private void doBorrow() {
         String id = inputField.getText().trim();

@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 public class Server {
-    private static final int PORT = 12346;
+    private static final int PORT = 6000;
     private static LibraryManager libraryManager = new LibraryManager();
 
     public static void main(String[] args) throws IOException {
