@@ -1,4 +1,5 @@
 package client;
+
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
@@ -14,7 +15,6 @@ public class Client {
             PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
             Scanner scanner = new Scanner(System.in);
         ) {
-            // Lexo mesazhin e mirëseardhjes
             System.out.println(input.readLine());
 
             String command;
