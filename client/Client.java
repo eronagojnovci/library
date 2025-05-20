@@ -10,10 +10,10 @@ public class Client {
 
     public static void main(String[] args) {
         try (
-            Socket socket = new Socket(SERVER, PORT);
-            BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
-            Scanner scanner = new Scanner(System.in);
+                Socket socket = new Socket(SERVER, PORT);
+                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
+                Scanner scanner = new Scanner(System.in);
         ) {
             System.out.println(input.readLine());
 

@@ -21,8 +21,8 @@ public class LibraryManager {
         StringBuilder sb = new StringBuilder();
         for (Book b : books.values()) {
             if (b.getId().toLowerCase().contains(keyword) ||
-                b.getTitle().toLowerCase().contains(keyword) ||
-                b.getAuthor().toLowerCase().contains(keyword)) {
+                    b.getTitle().toLowerCase().contains(keyword) ||
+                    b.getAuthor().toLowerCase().contains(keyword)) {
                 sb.append(b).append("\n");
             }
         }
