@@ -10,6 +10,7 @@ public class LibraryManager {
         addBook(new Book("1", "Java per fillestare", "Autor A", 3));
         addBook(new Book("2", "Struktura te te dhenave", "Autor B", 2));
         addBook(new Book("3", "Algoritme ne Java", "Autor C", 1));
+        addBook(new Book("4", "Programim i distibuar", "Autor C", 2));
     }
 
     public synchronized void addBook(Book book) {
