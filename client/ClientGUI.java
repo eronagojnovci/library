@@ -35,34 +35,35 @@ public class ClientGUI extends Application {
         return primaryStage;
     }
 
-
     private void showWelcome(Stage stage) {
         VBox welcomeBox = new VBox(20);
         welcomeBox.setAlignment(Pos.CENTER);
-        welcomeBox.setPadding(new Insets(60, 40, 60, 40));
-        welcomeBox.setBackground(new Background(new BackgroundFill(
-                new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
-                        new Stop(0, Color.web("#43cea2")), new Stop(1, Color.web("#185a9d"))),
-                CornerRadii.EMPTY, Insets.EMPTY)));
+        welcomeBox.setPadding(new Insets(150, 40, 60, 40));
+        BackgroundImage bgImage = new BackgroundImage(
+                new javafx.scene.image.Image(getClass().getResource("/assets/lb.jpg").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                new BackgroundSize(100, 100, true, true, false, true)
+        );
+        welcomeBox.setBackground(new Background(bgImage));
 
-        Label icon = new Label("📚");
-        icon.setFont(Font.font("Segoe UI Emoji", 80));
         Label title = new Label("Welcome to our Library!");
         title.setFont(Font.font("Segoe UI", 38));
-        title.setTextFill(Color.WHITE);
+        title.setTextFill(Color.web("#ffffff"));
         Label subtitle = new Label("Explore, borrow and enjoy your favorite books.");
         subtitle.setFont(Font.font("Segoe UI", 20));
-        subtitle.setTextFill(Color.WHITE);
+        subtitle.setTextFill(Color.web("#ffffff"));
 
         Button continueBtn = new Button("Vazhdo ➔");
         continueBtn.setFont(Font.font("Segoe UI", 22));
-        continueBtn.setStyle("-fx-background-radius: 25; -fx-background-color: #43cea2; -fx-text-fill: white;");
+        continueBtn.setStyle("-fx-background-radius: 25; -fx-background-color: #f5f1e6; -fx-text-fill: #4e342e;");
         continueBtn.setPadding(new Insets(10, 30, 10, 30));
-        continueBtn.setEffect(new DropShadow(10, Color.web("#185a9d")));
+        continueBtn.setEffect(new DropShadow(10, Color.web("#d7ccc8")));
 
         continueBtn.setOnAction(e -> showMain(stage));
 
-        welcomeBox.getChildren().addAll(icon, title, subtitle, continueBtn);
+        welcomeBox.getChildren().addAll(title, subtitle, continueBtn);
 
         Scene welcomeScene = new Scene(welcomeBox, 1000, 600);
         stage.setScene(welcomeScene);
@@ -85,15 +86,12 @@ public class ClientGUI extends Application {
         headerIcon.setFont(Font.font("Segoe UI Emoji", 38));
         Label headerTitle = new Label("Libraria Online");
         headerTitle.setFont(Font.font("Segoe UI", 32));
-        headerTitle.setTextFill(Color.WHITE);
+        headerTitle.setTextFill(Color.web("#4e342e"));
 
         HBox header = new HBox(15, headerIcon, headerTitle);
         header.setAlignment(Pos.CENTER_LEFT);
         header.setPadding(new Insets(20, 0, 20, 30));
-        header.setBackground(new Background(new BackgroundFill(
-                new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
-                        new Stop(0, Color.web("#43cea2")), new Stop(1, Color.web("#185a9d"))),
-                CornerRadii.EMPTY, Insets.EMPTY)));
+        header.setBackground(new Background(new BackgroundFill(Color.web("#efebe9"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         searchField = new TextField();
         searchField.setPromptText("Kërko libër...");
@@ -101,7 +99,7 @@ public class ClientGUI extends Application {
 
         Button searchBtn = new Button("🔍");
         searchBtn.setFont(Font.font(18));
-        searchBtn.setStyle("-fx-background-radius: 20; -fx-background-color: #43cea2; -fx-text-fill: white;");
+        searchBtn.setStyle("-fx-background-radius: 20; -fx-background-color: #d7ccc8; -fx-text-fill: #4e342e;");
         searchBtn.setOnAction(e -> searchBook());
 
         bookIdField = new TextField();
@@ -109,19 +107,19 @@ public class ClientGUI extends Application {
         bookIdField.setPrefWidth(90);
 
         Button borrowBtn = new Button("📚 Huazo");
-        borrowBtn.setStyle("-fx-background-radius: 20; -fx-background-color: #43cea2; -fx-text-fill: white;");
+        borrowBtn.setStyle("-fx-background-radius: 20; -fx-background-color: #d7ccc8; -fx-text-fill: #4e342e;");
         borrowBtn.setOnAction(e -> borrowBook());
 
         Button returnBtn = new Button("↩️ Kthe");
-        returnBtn.setStyle("-fx-background-radius: 20; -fx-background-color: #43cea2; -fx-text-fill: white;");
+        returnBtn.setStyle("-fx-background-radius: 20; -fx-background-color: #d7ccc8; -fx-text-fill: #4e342e;");
         returnBtn.setOnAction(e -> returnBook());
 
         Button listBtn = new Button("📋 Listo librat");
-        listBtn.setStyle("-fx-background-radius: 20; -fx-background-color: #43cea2; -fx-text-fill: white;");
+        listBtn.setStyle("-fx-background-radius: 20; -fx-background-color: #d7ccc8; -fx-text-fill: #4e342e;");
         listBtn.setOnAction(e -> listBooks());
 
         Button exitBtn = new Button("❌ Dil");
-        exitBtn.setStyle("-fx-background-radius: 20; -fx-background-color: #e74c3c; -fx-text-fill: white;");
+        exitBtn.setStyle("-fx-background-radius: 20; -fx-background-color: #bcaaa4; -fx-text-fill: white;");
         exitBtn.setOnAction(e -> exitClient());
 
         HBox commands = new HBox(10, searchField, searchBtn, bookIdField, borrowBtn, returnBtn, listBtn, exitBtn);
@@ -142,7 +140,7 @@ public class ClientGUI extends Application {
         VBox root = new VBox(header, commands, cardsPane, outputArea);
         VBox.setVgrow(cardsPane, Priority.ALWAYS);
         root.setSpacing(10);
-        root.setBackground(new Background(new BackgroundFill(Color.web("#f4f8fb"), CornerRadii.EMPTY, Insets.EMPTY)));
+        root.setBackground(new Background(new BackgroundFill(Color.web("#f5f1e6"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         try {
             String welcome = input.readLine();
@@ -222,21 +220,14 @@ public class ClientGUI extends Application {
         }
     }
 
-
-
-
-
-
-
-
     private void listBooks() {
         sendCommand("LISTO");
         try {
             String response = readResponse();
-            outputArea.appendText("Lista e librave:\n" + response + "\n");
+//            outputArea.appendText("Lista e librave:\n" + response + "\n");
             updateCardsFromResponse(response);
         } catch (IOException e) {
-            outputArea.appendText("Gabim gjatë marrjes së listës.\n");
+//            outputArea.appendText("Gabim gjatë marrjes së listës.\n");
         }
     }
 
@@ -256,14 +247,14 @@ public class ClientGUI extends Application {
             card.setPadding(new Insets(15));
             card.setPrefWidth(220);
             card.setStyle(
-                    "-fx-background-color: #ffffff; " +
+                    "-fx-background-color: #fffaf0; " +
                             "-fx-background-radius: 15; " +
-                            "-fx-effect: dropshadow(gaussian, #185a9d33, 8, 0, 0, 2);"
+                            "-fx-effect: dropshadow(gaussian, #a1887f55, 8, 0, 0, 2);"
             );
 
             Label titleLbl = new Label(title);
             titleLbl.setFont(Font.font("Segoe UI", 18));
-            titleLbl.setTextFill(Color.web("#185a9d"));
+            titleLbl.setTextFill(Color.web("#6d4c41"));
             Label authorLbl = new Label("Autori: " + author);
             Label idLbl = new Label("ID: " + id);
             Label availableLbl = new Label("Në dispozicion: " + available);
