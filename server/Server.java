@@ -17,6 +17,7 @@ public class Server {
 
         ExecutorService pool = Executors.newFixedThreadPool(10);
 
+
         while (true) {
             Socket clientSocket = serverSocket.accept();
             System.out.println("Klienti lidhur: " + clientSocket.getInetAddress());

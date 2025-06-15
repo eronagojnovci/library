@@ -23,6 +23,7 @@ public class ClientHandler implements Runnable {
 				BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
 		) {
+			output.println("Mirësevini në Librarinë Online!");
 			String request;
 			while ((request = input.readLine()) != null) {
 				String response = processRequest(request);
